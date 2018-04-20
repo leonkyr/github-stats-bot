@@ -2,18 +2,16 @@ import { Bar as NBar } from "@nivo/bar";
 import * as React from "react";
 
 interface Item {
-    author: string;
-    added: number;
-    deleted: number;
-    modified: number;
+    date: string;
+    created: number;
+    merged: number;
 }
 
 export type Data = Item[];
 
 const colors = {
-    added: "#97e3d5",
-    modified: "#f1e15b",
-    deleted: "#f47560"
+    created: "#339922",
+    merged: "#ff2233",
 };
 
 export interface Options {
@@ -21,7 +19,7 @@ export interface Options {
 }
 
 interface Node {
-    id: "added" | "modified" | "deleted";
+    id: "created" | "merged";
 }
 
 export default (props: { data: Data; options?: Options }) => {
@@ -33,19 +31,22 @@ export default (props: { data: Data; options?: Options }) => {
             width={600}
             height={300}
             data={data}
-            keys={["deleted", "modified", "added"]}
-            indexBy="author"
+            keys={["created", "merged"]}
+            indexBy="date"
             margin={{
                 top: 50,
                 right: 130,
                 bottom: 50,
                 left: 60
             }}
-            padding={0.3}
-            colors="nivo"
+            padding={0.5}
+        
+            borderRadius={5}
+            colors="set3"
             colorBy={(node: Node) => {
                 return colors[node.id];
             }}
+            groupMode="grouped"
             defs={[
                 {
                     id: "dots",
@@ -72,7 +73,7 @@ export default (props: { data: Data; options?: Options }) => {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: "contributor",
+                legend: "Date",
                 legendPosition: "center",
                 legendOffset: 36
             }}
@@ -81,10 +82,11 @@ export default (props: { data: Data; options?: Options }) => {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: "LOC",
+                legend: "Count",
                 legendPosition: "center",
                 legendOffset: -70
             }}
+            enableLabel={false}
             labelSkipWidth={12}
             labelSkipHeight={12}
             labelTextColor="inherit:darker(1.6)"

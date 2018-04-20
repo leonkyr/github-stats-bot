@@ -1,4 +1,4 @@
-import { Calendar as NCalendar } from "@nivo/calendar";
+import { Line as NLine } from "@nivo/line";
 import { DOMElement } from "react";
 import * as React from "react";
 import { render } from "react-dom";
@@ -14,12 +14,12 @@ export interface Options {
     isInteractive?: boolean;
 }
 
-export const Calendar = (props: { data: Interval[]; options?: Options }) => {
+export const Line = (props: { data: Interval[]; options?: Options }) => {
     const data = props.data;
     const options = props.options || {};
 
     return (
-        <NCalendar
+        <NLine
             width={600}
             height={300}
             data={data}
@@ -59,5 +59,5 @@ export default (
     data: Interval[],
     options: Options = {}
 ) => {
-    render(<Calendar data={data} options={options} />, target);
+    render(<Line data={data} options={options} />, target);
 };
